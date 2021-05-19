@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Supply chain admin page</title>
+<meta charset="UTF-8">
+
+<!-- 
+    file taken from https://github.com/ChainSafe/web3.js
+    alternative is to use online CNN as describes in the github page
+-->
+
+</head>
+<body>	
+    <div>
+        <h2> Instruction to Use</h2>
+        1. Deploy a new contract or connect to an already deployed contract by its address. <br/>
+        2. When Location field is empty on the selection box (during addition of product), please register a new location. <br/>
+        3. Default/selected accountn in metamask is the account set in all transactions. <br/>
+    </div>
+    <hr/>
+    <div>
+        <h2> Deploy Contract</h2>
+        <p>Gas (Wei)
+        <input type="text" id="deployment_estimatedgas" size="10" value="4700000" /></p> <br/>
+        <button id="deploy_new_contract_btn"> Deploy new contract </button>
+        <!-- after succesful deploy fill in the text iput bellow-->
+    </div>
+    <br/>
+    <div>
+        <h2> Connect to Contract</h2>
+        <table>
+            <tr>
+                <td>Contract address</td>
+                <td>
+                    <input type="text" size = "50" id="contract_address" />
+                </td>
+                <td>
+                    <button id="connect_contract">Connect</button>
+                </td>
+            </tr>
+        </table>
+       <!-- add text input and button connect-->
+    </div>
+    <hr/>
+    <div>
+        <h2> Product List</h2>
+        <table id="product_table" border="1">
+            <tr>
+                <td>Product Hash Id</td>
+                <td></td>
+            </tr>
+        </table>
+    </div>   
+    <hr/>
+    <div>
+        <h2> Register Location </h2>
+        <table>
+            <tr>
+                <td>Location name</td>
+                <td><input type="text" id="location_name_reg"size="50"></td>
+              </tr>
+        </table>
+        
+        <button id="register_location"> Add </button>
+    </div>
+    <hr/>
+    <div>
+        <h2> Add Product</h2>
+        <table>
+            <tr>
+              <td>Product Name</td>
+              <td><input type="text" id="product_name"size="50"></td>
+            </tr>
+            <tr>
+              <td>Location</td>
+              <td><select id="locationListBox"></select></td>
+            </tr>
+            <tr>
+                <td>Production Date</td>
+                <td><input type="date" id="production_date"size="50"></td>
+              </tr>
+        </table>
+        
+        <button id="add_product"> Add </button>
+    </div>
+
+</body>
+<script src="js/web3/web3.min.js"></script>
+<script src="js/index.js"></script>
+<script src="js/contract_definition.js"></script>
+</html>

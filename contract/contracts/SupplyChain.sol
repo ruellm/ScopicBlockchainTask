@@ -185,6 +185,13 @@ function getLocation(uint8 id) public view returns (string memory)  {
 }
 
 /**
+  * @dev returns the location name given the inwdex
+*/
+function getLocationCount() public view returns (uint)  {
+  return _locations.length;
+}
+
+/**
   * @dev returns all locations registered on this contract
   * applicationn must query this after conection to establish list of locations
   * NOTE : This is costly gas wise as event is called mutliple times, this should only be use
