@@ -128,7 +128,8 @@ contract SupplyChain is Ownable {
     product.name = name;
     product.locationId = locationId;
     product.owner = msg.sender;
-
+    product.productionDate = block.timestamp;
+    
     // 3. add to history record
     product.history.push(TransactionLog({
       transactionType: TransactionLogType.CREATED,

@@ -12,13 +12,6 @@
 </head>
 <body>	
     <div>
-        <h2> Instruction to Use</h2>
-        1. Deploy a new contract or connect to an already deployed contract by its address. <br/>
-        2. When Location field is empty on the selection box (during addition of product), please register a new location. <br/>
-        3. Default/selected accountn in metamask is the account set in all transactions. <br/>
-    </div>
-    <hr/>
-    <div>
         <h2> Deploy Contract</h2>
         <p>Gas (Wei)
         <input type="text" id="deployment_estimatedgas" size="10" value="4700000" /></p> <br/>
@@ -52,6 +45,49 @@
         </table>
     </div>   
     <hr/>
+    <div id="view_product">
+        <b> Product Details</b> 
+        <button onclick='hideProductDetail()'>Hide</button><br/><br/>
+
+        <table>
+            <tr>
+                <td>Product hash</td>
+                <td><input type="text" id="product_view_hash" size="50" readonly></td>
+                <td></td>
+            </tr>
+            <tr>
+              <td>Name</td>
+              <td><input type="text" id="product_viwq_name"size="50" readonly></td>
+              <td></td>
+            </tr>
+            <tr>
+                <td>Production Date</td>
+                <td><input type="date" id="product_view_date"size="50" readonly></td>
+                <td></td>
+              </tr>
+            <tr>
+              <td>Location</td>
+              <td><select id="product_view_location"></select></td>
+              <td><button id="update_location">Change Location</buttonn></td>
+            </tr>
+              <tr>
+                <td>Ownner Address </td>
+                <td><input type="text" id="product_view_owner"size="50"></td>
+                <td><button id="transfer_owner">Transfer owner</buttonn></td>
+              </tr>
+        </table>
+
+        <h3> Transaction History </h3>
+        <table id="transaction_history" border="1">
+            <tr>
+                <td>Transaction Type</td>
+                <td>Date</td>
+                <td>Location</td>
+                <td>Owner</td>
+            </tr>
+        </table>
+    </div>
+    <hr/>
     <div>
         <h2> Register Location </h2>
         <table>
@@ -83,7 +119,61 @@
         
         <button id="add_product"> Add </button>
     </div>
-
+    <hr/>
+    <div>
+        <h1> Dapp manual</h1>
+        <h2> Pre requisite </h2>
+        <ol>
+        <li> Login to Metamask, make sure it is connected to a network testnet or local Ganache</li>
+        <li> Create or import an account with enough balance to interact with the chain to send transaction. Set this account as default </li>
+        </ol>
+        <h2> How to use </h2>
+        <ol>
+        <li> For first time use of the Dapp, assuming the contract is not yet deployed into the network, please click on the <b>Deploy new contract</b> button. <br/>
+            It will connect to metamask, select the account created above, and click <b>Confirm</b> button from Metamask. <br/>
+            Once deployment is succesful, an address is generated. Save this address.<br/> <br/>
+            For suceeding use of the Dapp on same network, deployment is no longer needed and we can use the generated address to conect directly.
+        </li>
+        <br/>
+        <li> Click on the <b>Connect</b> button under the <i>Connnect to Contract</i> section.</li>
+        <li> Register a location. When successful, the new locationn is added to the drop down list in the <i>Add Product Section</i>  </li>
+        <li> Add a product, the product will be initialy assigned to the contract owner. If the transaction is succesful, the new product hash will be added in the
+            <i>Product List</i> section </li>
+        <li> To view the product details, under the <i>Product List</i> section, click on the <b>View</b> button, an additional panel will show with the product information alongn with its transcation history</li>
+        <li> To Change location of a product, select a new location from the drop down list and click on <b>Change Location</b> button.
+        <li> To transfer product ownership, enter a new wallet addres in the Owner field and click onn  <b>Transfer Owner</b> button.
+        </li>
+                
+        </ol>
+        <h2> Important notes </h2>
+        <ol>
+            <li>
+                Contract owner refers to the account that deployed the contract.
+            </li>
+            <li>
+                Durinng initial connection to metamask, select only one account. The Dapp only uses the first account (index[0]) in all transactions <br/>
+                This app did not support multiple account handling from metamask as it will complicate the UI further and is out of scope of this task.
+            </li>
+            <li>
+               Changing of location and transfer of owner ship can only be done by either <i>Product owner</i> and/or <b>Product Owner</b>.
+            </li>
+            <li>
+               
+               All major error handlings are handled, Example: entering an invalid address will result to error. <br/> <br/>
+               <b>To test invalid access errors</b><br/> <br/>
+               <ol>
+                   <li>  Restart the browser. Open the Dapp.</li>
+                   <li> Open metamask, it shows that it is not connected. Click on the text that says “Not Connected”</li>
+                   <li> Chose an account that is neither a contract owner or a product owner from previous run. Click connect.</li>
+                   <li> Connect to the contract using the previously generated contract address.</li>
+                   <li> View a product in the product list (previously created)</li>
+                   <li> Change location of the product, Click confirm.</li>
+                   <li> Error will occur</li>
+               </ol>
+             </li>
+        </ol>
+        
+    </div>
 </body>
 <script src="js/web3/web3.min.js"></script>
 <script src="js/index.js"></script>
