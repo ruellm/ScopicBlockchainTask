@@ -15,7 +15,7 @@ Web3.js v1.3.5  <br/>
 <br/>
 Tested with Ganache v2.5.4. <br/>
 Smart contract is built with Solidity version >=0.6.2 <0.9.0;  <br/>
-<br/>
+
 # Smart Contract
 To build the smart contract
 1. Go to the contract folder and do
