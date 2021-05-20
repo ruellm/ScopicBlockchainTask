@@ -63,11 +63,16 @@ async  function connectContract()
     defaultAccoutn = await ethereum.request({method: 'eth_requestAccounts'});
   }
 
-  var address =  document.getElementById('contract_address').value;
-  contractInstance = new web3.eth.Contract(CONTRACT_ABI, address);
-
-  alert("Contract instance created");
-  initializeApp();
+  try{
+    var address =  document.getElementById('contract_address').value;
+    contractInstance = new web3.eth.Contract(CONTRACT_ABI, address);
+    connected = true;
+    alert("Contract instance created");
+    initializeApp();
+  }catch(error) {
+    alert("Unable to connect, Possible Invalid address?");
+    conected = false;
+  }
 }
 
 function addTransactionHistory(result) {
@@ -221,6 +226,11 @@ async function refreshProductList()
 
 function addProduct()
 {
+  if(connected == false) {
+    alert("Not connected to a contract");
+    return;
+  }
+
   var productName = document.getElementById("product_name").value;
   if(productName.length == 0) {
     alert("Product name should not be empty");
@@ -241,7 +251,7 @@ function addProduct()
   }
 
   var prodDate = new Date(document.getElementById('production_date').value);
-  const timeStamp = Math.floor(Date.now() / 1000);
+  const timeStamp = Math.floor(prodDate.getTime() / 1000);
 
   // sennd transactionn
   contractInstance.methods.registerProduct(productName, timeStamp, index).send({from: defaultAccoutn[0]}, function(error, result){
@@ -307,12 +317,17 @@ async function refreshLocationList()
 
 function registerLocation()
 {
-  if(contractInstance == null) {
-    alert("No contract deployed or connected");
+  if(connected == false) {
+    alert("Not connected to a contract");
     return;
   }
 
   var locationName = document.getElementById("location_name_reg").value;
+  if(locationName.length==0) {
+    alert("Location name should not be empty");
+    return;
+  }
+
   contractInstance.methods.registerLocation(locationName).send({from: defaultAccoutn[0]}, function(error, result){
     if(error) {
       console.log(error);
@@ -397,6 +412,7 @@ function transferOwner()
 }
 
 var contractInstance = null;
+var connected = false;
 
 var defaultAccoutn = null;
 let deploy_btn = document.getElementById("deploy_new_contract_btn");
